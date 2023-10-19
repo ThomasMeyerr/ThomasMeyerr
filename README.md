@@ -13,4 +13,5 @@
 <img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg">
 <img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/6/62/CSS3_logo.svg">
 <img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Javascript_Logo.png">
-<img width="50" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
+<img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
+<img width="160" src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg">
