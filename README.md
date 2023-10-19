@@ -1,5 +1,8 @@
-### Hi there 👋
+<h1 align="center">Hello there, I'm Thomas 👋</h1>
 
+💻 Currently learning **at [@42School](https://github.com/42School)**
+
+## Stats
 <a href="https://github.com/M0dzie">
   <img align="center" src="https://github-readme-stats.vercel.app/api?username=M0dzie&count_private=true&show_icons=true&include_all_commits=true&hide=contribs&line_height=24&theme=transparent" />
 </a>
