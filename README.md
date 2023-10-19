@@ -7,3 +7,8 @@
 <a href="https://github.com/M0dzie">
   <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=M0dzie&layout=compact&theme=transparent" />
 </a>
+
+## Currently learning 👨‍💻
+
+<img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/570px-C_Programming_Language.svg.png?20201031132917">
+<img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/3/32/C%2B%2B_logo.png">
