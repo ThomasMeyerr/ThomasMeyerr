@@ -3,7 +3,7 @@
 💻 Currently learning **at [@42School](https://github.com/42School)**
 
 ## Stats
-<img align="left" src="https://github-readme-stats.vercel.app/api?username=M0dzie&count_private=true&show_icons=true&include_all_commits=false&hide=contribs&line_height=24&theme=transparent" />
+<img align="left" src="https://github-readme-stats.vercel.app/api?username=M0dzie&count_private=true&show_icons=true&line_height=24&theme=transparent" />
 <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=M0dzie&layout=compact&theme=transparent" />
 
 ## Currently learning 👨‍💻
