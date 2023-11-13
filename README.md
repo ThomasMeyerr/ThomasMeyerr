@@ -3,7 +3,9 @@
 💻 Currently learning **at [@42School](https://github.com/42School)**
 
 ## Stats
-[![GitHub Streak](https://streak-stats.demolab.com/?user=M0dzie&theme=dark)](https://git.io/streak-stats)
+
+![Modzie's GitHub stats](https://github-readme-stats.vercel.app/api?username=M0dzie&show_icons=true&theme=midnight-purple)
+ [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=M0dzie&hide=Jupyter%20Notebook&layout=compact&theme=midnight-purple)](https://github.com/rahulbordoloi/github-readme-stats)
 
 ## Currently learning 👨‍💻
 
@@ -14,3 +16,5 @@
 <img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Javascript_Logo.png">
 <img align="left" width="50" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
 <img width="160" src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg">
+
+<a href=#><img src="contributions.svg"></a>
