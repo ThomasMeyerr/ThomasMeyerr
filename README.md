@@ -1,6 +1,6 @@
 <h1 align="center">Hello there, I'm Thomas 👋</h1>
 
-💻 Currently learning **at [@42School](https://github.com/42School)**
+💻 **At [@42School](https://github.com/42School)**
 
 ## Currently learning 👨‍💻
 
