@@ -3,7 +3,10 @@
 💻 **At [@42School](https://github.com/42School)**
 
 ## Currently learning 👨‍💻
+### Languages
+<img src="https://skillicons.dev/icons?i=swift,c,cpp,python,django">
 
-<img align="left" width="400" src="https://skillicons.dev/icons?i=c,cpp,python,django,swift">
+### Tools
+<img src="https://skillicons.dev/icons?i=github,docker,vscode">
 
 <a href=#><img src="contributions.svg"></a>
