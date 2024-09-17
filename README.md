@@ -4,7 +4,7 @@
 
 ### Currently learning 👨‍💻
 #### Languages
-<img src="https://skillicons.dev/icons?i=swift,c,cpp,python,django,javascript">
+<img src="https://skillicons.dev/icons?i=swift,c,cpp,python,django,javascript,html,css">
 
 #### Tools
 <img src="https://skillicons.dev/icons?i=github,docker,vscode">
