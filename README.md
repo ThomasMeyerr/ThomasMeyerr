@@ -7,6 +7,6 @@
 <img src="https://skillicons.dev/icons?i=swift,c,cpp,python,django,javascript,html,css">
 
 #### Tools
-<img src="https://skillicons.dev/icons?i=github,docker,vscode">
+<img src="https://skillicons.dev/icons?i=apple,git,github,docker,vscode">
 
 <a href=#><img src="contributions.svg"></a>
