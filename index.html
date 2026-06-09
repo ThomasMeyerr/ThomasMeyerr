@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thomas Meyer — Développeur</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c27;
+      --border: #2a2a3a;
+      --accent: #7c6aff;
+      --accent2: #ff6ab0;
+      --accent3: #6affda;
+      --text: #e8e8f0;
+      --muted: #6b6b85;
+      --radius: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Grid noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,106,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,106,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Blobs ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .25;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--accent); top: -200px; left: -200px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--accent2); bottom: -150px; right: -150px; }
+    .blob-3 { width: 400px; height: 400px; background: var(--accent3); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+    /* ── Layout ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,15,.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .04em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .875rem;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 0 60px;
+    }
+
+    .hero-content { max-width: 680px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(124,106,255,.35);
+      background: rgba(124,106,255,.08);
+      font-size: .75rem;
+      color: var(--accent);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.8); }
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      margin-bottom: 20px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 40px;
+      line-height: 1.75;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: .9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all .25s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 0 30px rgba(124,106,255,.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(124,106,255,.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── Section headers ── */
+    section { padding: 100px 0; }
+
+    .section-label {
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin-bottom: 52px;
+      line-height: 1.75;
+    }
+
+    /* ── Stack grid ── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .stack-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: all .25s;
+      cursor: default;
+    }
+
+    .stack-card:hover {
+      border-color: var(--accent);
+      background: var(--surface2);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(124,106,255,.15);
+    }
+
+    .stack-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .stack-name {
+      font-size: .825rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .stack-type {
+      font-size: .7rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .project-card.purple::before { background: linear-gradient(135deg, rgba(124,106,255,.08), transparent); }
+    .project-card.pink::before   { background: linear-gradient(135deg, rgba(255,106,176,.08), transparent); }
+    .project-card.teal::before   { background: linear-gradient(135deg, rgba(106,255,218,.08), transparent); }
+
+    .project-card:hover { border-color: var(--border); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.3); }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .project-emoji { font-size: 2rem; line-height: 1; }
+
+    .project-tag {
+      font-size: .7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -.01em;
+    }
+
+    .project-card p {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .project-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: .7rem;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .about-card h3 {
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .about-card p {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .about-card.wide {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 640px) {
+      .about-card.wide { grid-column: span 1; }
+    }
+
+    /* ── Contact ── */
+    .contact-section {
+      text-align: center;
+    }
+
+    .contact-section .section-sub {
+      margin: 0 auto 48px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ── Mobile nav ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="container">
+      <span class="logo">Thomas Meyer</span>
+      <ul class="nav-links">
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Disponible pour de nouveaux projets
+        </div>
+
+        <h1>
+          Bonjour, je suis<br>
+          <span class="gradient-text">Thomas Meyer</span>
+        </h1>
+
+        <p class="hero-desc">
+          Développeur full-stack passionné par la création d'expériences
+          digitales soignées — des apps mobiles Flutter aux backends robustes,
+          en passant par des interfaces qui font la différence.
+        </p>
+
+        <div class="cta-row">
+          <a href="#projects" class="btn btn-primary">
+            Voir mes projets
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">Me contacter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section id="stack">
+    <div class="container">
+      <p class="section-label">Technologies</p>
+      <h2 class="section-title">Ma stack</h2>
+      <p class="section-sub">
+        Des outils choisis pour leur robustesse, leur ergonomie et leur
+        capacité à délivrer des produits de qualité production.
+      </p>
+
+      <div class="stack-grid">
+        <div class="stack-card">
+          <div class="stack-icon">🐦</div>
+          <div class="stack-name">Flutter</div>
+          <div class="stack-type">Mobile • Desktop</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">🎯</div>
+          <div class="stack-name">Dart</div>
+          <div class="stack-type">Langage</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">⚡</div>
+          <div class="stack-name">Riverpod</div>
+          <div class="stack-type">State management</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">🟦</div>
+          <div class="stack-name">TypeScript</div>
+          <div class="stack-type">Frontend • Backend</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">🟢</div>
+          <div class="stack-name">Node.js</div>
+          <div class="stack-type">Backend</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">🐘</div>
+          <div class="stack-name">PostgreSQL</div>
+          <div class="stack-type">Base de données</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">🔥</div>
+          <div class="stack-name">Supabase</div>
+          <div class="stack-type">BaaS • Auth</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">🐳</div>
+          <div class="stack-name">Docker</div>
+          <div class="stack-type">DevOps</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">🦀</div>
+          <div class="stack-name">Rust</div>
+          <div class="stack-type">Systèmes</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-icon">☁️</div>
+          <div class="stack-name">Cloud</div>
+          <div class="stack-type">GCP • AWS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Réalisations</p>
+      <h2 class="section-title">Projets</h2>
+      <p class="section-sub">
+        Des projets concrets, du MVP à la production, sur mobile, web et
+        infrastructure.
+      </p>
+
+      <div class="projects-grid">
+        <div class="project-card purple">
+          <div class="project-top">
+            <span class="project-emoji">🎮</span>
+            <span class="project-tag">Mobile</span>
+          </div>
+          <h3>Score</h3>
+          <p>Application Flutter de gestion de scores pour jeux de société — Yam, belote, coinche et plus. UI soignée, historique de parties et gestion des joueurs.</p>
+          <div class="project-chips">
+            <span class="chip">Flutter</span>
+            <span class="chip">Riverpod</span>
+            <span class="chip">Supabase</span>
+            <span class="chip">RevenueCat</span>
+          </div>
+        </div>
+
+        <div class="project-card pink">
+          <div class="project-top">
+            <span class="project-emoji">🔐</span>
+            <span class="project-tag">Auth</span>
+          </div>
+          <h3>Flutter Starter Kit</h3>
+          <p>Template production-ready avec authentification Apple / Google, achats in-app, AdMob, Sentry et internationalisation multi-langues.</p>
+          <div class="project-chips">
+            <span class="chip">Flutter</span>
+            <span class="chip">go_router</span>
+            <span class="chip">i18n</span>
+            <span class="chip">AdMob</span>
+          </div>
+        </div>
+
+        <div class="project-card teal">
+          <div class="project-top">
+            <span class="project-emoji">🦀</span>
+            <span class="project-tag">CLI • DevOps</span>
+          </div>
+          <h3>RTK</h3>
+          <p>Proxy CLI Rust qui réduit la consommation de tokens Claude de 60 à 90 % lors des opérations de développement. Intègre des hooks Claude Code transparents.</p>
+          <div class="project-chips">
+            <span class="chip">Rust</span>
+            <span class="chip">CLI</span>
+            <span class="chip">Claude Code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">À propos</p>
+      <h2 class="section-title">Qui suis-je ?</h2>
+      <p class="section-sub">
+        Un développeur qui prend soin des détails — de l'architecture au
+        pixel près.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-card wide">
+          <h3>En quelques mots</h3>
+          <p>
+            Développeur passionné avec une forte sensibilité produit, je conçois des
+            applications mobiles et des systèmes backend avec le même soin que je
+            mets dans les expériences utilisateurs. J'aime les codebases propres,
+            les conventions rigoureuses et les outils qui font gagner du temps.
+            Quand je ne code pas, je réfléchis à comment mieux coder.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <h3>Approche</h3>
+          <p>
+            Architecture d'abord, implémentation ensuite. DRY, SOLID, et un sens
+            aigu de quand ne pas sur-abstraire. Le bon code est celui qui se lit
+            comme une phrase.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <h3>Centres d'intérêt</h3>
+          <p>
+            Mobile-first, outillage développeur, performance, et l'intersection
+            entre UX et ingénierie. Fan de Rust pour les projets où les
+            nanosecondes comptent.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <h3>Actuellement</h3>
+          <p>
+            Focus sur Flutter et les apps mobiles à monétisation intégrée.
+            Exploration des patterns d'agents LLM et de l'automatisation du
+            workflow développeur.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <h3>Langues</h3>
+          <p>
+            Français (natif) · Anglais (courant) ·
+            Dart · TypeScript · Rust · SQL
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Travaillons ensemble</h2>
+      <p class="section-sub">
+        Un projet, une collaboration, ou juste une question ?
+        Je lis tous mes messages.
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:thomas@example.com" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Envoyer un email
+        </a>
+        <a href="https://github.com" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zm2-6a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Thomas Meyer — Fait avec soin, sans framework.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
